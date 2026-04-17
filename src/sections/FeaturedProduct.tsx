@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 export function FeaturedProduct() {
-  const { setCurrentView, addToCart, products } = useApp();
+  const { setCurrentView, addToCart, products, formatPrice } = useApp();
 
   const featuredProduct = products.find(p => p.featured) || products[0];
 
@@ -42,7 +42,7 @@ export function FeaturedProduct() {
             {/* Right - Price & CTA */}
             <div className="lg:text-right">
               <div className="text-5xl lg:text-6xl font-display font-bold text-aria-pink mb-4">
-                ${featuredProduct.price}
+                {formatPrice(featuredProduct.price)}
               </div>
               <Button
                 onClick={handleBuyNow}

@@ -340,7 +340,10 @@ export function GhostAdmin() {
     user,
     updateLastActivity,
     totalClicks,
-    affiliateStats
+    affiliateStats,
+    currency,
+    setCurrency,
+    formatPrice
   } = useApp();
   
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
@@ -425,8 +428,22 @@ export function GhostAdmin() {
 
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-3 pr-4 border-r border-gray-100">
-               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">System Active</span>
+               <div className="flex items-center bg-gray-50 border border-gray-100 rounded-lg p-0.5">
+                 <button 
+                   onClick={() => setCurrency('USD')}
+                   className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest transition-all rounded-md ${currency === 'USD' ? 'bg-black text-white' : 'text-gray-400 hover:text-gray-600'}`}
+                 >
+                   USD
+                 </button>
+                 <button 
+                   onClick={() => setCurrency('NGN')}
+                   className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest transition-all rounded-md ${currency === 'NGN' ? 'bg-black text-white' : 'text-gray-400 hover:text-gray-600'}`}
+                 >
+                   NGN
+                 </button>
+               </div>
+               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse ml-2" />
+               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Active</span>
             </div>
             <button
               onClick={logoutAdmin}
@@ -447,7 +464,7 @@ export function GhostAdmin() {
             <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-gray-200/50 transition-all group">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Total Revenue</p>
               <div className="text-4xl font-bold text-gray-900 tabular-nums group-hover:text-aria-pink transition-colors">
-                ${totalSales.toLocaleString()}
+                {formatPrice(totalSales)}
               </div>
               <div className="mt-4 flex items-center gap-2">
                 <span className="text-[10px] font-bold text-green-500 py-1 px-2 bg-green-50 rounded-lg">+14.2%</span>
@@ -518,7 +535,7 @@ export function GhostAdmin() {
                <div className="flex items-center justify-between">
                  <div>
                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-1">Affiliate Stats</p>
-                   <p className="text-lg font-bold text-gray-900">${affiliateStats.toFixed(2)}</p>
+                   <p className="text-lg font-bold text-gray-900">{formatPrice(affiliateStats)}</p>
                  </div>
                  <div className="text-right">
                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-1">Total Clicks</p>

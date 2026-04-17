@@ -3,7 +3,7 @@ import { ArrowLeft, Check, Star, ArrowRight } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 export function ProductDetail() {
-  const { selectedProduct, setCurrentView } = useApp();
+  const { selectedProduct, setCurrentView, formatPrice } = useApp();
 
   if (!selectedProduct) {
     setCurrentView('products');
@@ -100,7 +100,7 @@ export function ProductDetail() {
             <div className="flex flex-col sm:flex-row items-stretch gap-4 pt-10 border-t border-gray-100">
               <div className="flex items-center gap-4 mb-4 sm:mb-0">
                 <div className="text-5xl font-bold text-gray-900 font-mono tracking-tighter">
-                  ${selectedProduct.price}
+                  {formatPrice(selectedProduct.price)}
                 </div>
                 <div className="h-10 w-px bg-gray-100 hidden sm:block" />
               </div>

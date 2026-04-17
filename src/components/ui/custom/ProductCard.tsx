@@ -9,7 +9,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, variant = 'default' }: ProductCardProps) {
-  const { user, setSelectedProduct, setCurrentView, incrementClicks } = useApp();
+  const { user, setSelectedProduct, setCurrentView, incrementClicks, formatPrice } = useApp();
 
   const isPurchased = user?.purchasedProducts.includes(product.id);
   const commission = product.commission || 50;
@@ -39,7 +39,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           <h3 className="font-bold text-black truncate">{product.title}</h3>
           <p className="text-gray-500 text-sm mt-1">{product.category}</p>
           <div className="mt-3 flex items-center justify-between">
-            <span className="font-bold text-black">${product.price}</span>
+            <span className="font-bold text-black">{formatPrice(product.price)}</span>
             <span className="text-gray-500 text-sm flex items-center gap-1">
               <Check className="w-4 h-4 text-green-600" />
               Purchased
@@ -78,7 +78,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         
         <div className="mt-auto">
           <div className="flex items-center justify-between py-3 border-t border-gray-100">
-            <span className="text-xl font-bold text-black">${product.price}</span>
+            <span className="text-xl font-bold text-black">{formatPrice(product.price)}</span>
             <div className="bg-[#00C853] text-white px-2 py-1 text-[10px] font-bold uppercase">
               Commission {commission}%
             </div>
