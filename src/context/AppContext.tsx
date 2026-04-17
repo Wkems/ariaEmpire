@@ -80,7 +80,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem('aria_total_clicks');
     return saved ? parseInt(saved) : 0;
   });
-  const [affiliateStats, setAffiliateStats] = useState<number>(() => {
+  const [affiliateStats] = useState<number>(() => {
     const saved = localStorage.getItem('aria_affiliate_stats');
     return saved ? parseFloat(saved) : 0;
   });

@@ -499,7 +499,7 @@ export function GhostAdmin() {
                </button>
              </div>
              <div className="space-y-6">
-               {[].map((earner, i) => (
+               {([] as { name: string; earnings: string; id: string }[]).map((earner, i) => (
                  <div key={i} className="flex items-center justify-between group cursor-pointer">
                    <div className="flex items-center gap-4">
                      <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center font-bold text-gray-400 group-hover:bg-black group-hover:text-white transition-all">

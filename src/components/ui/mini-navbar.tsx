@@ -27,7 +27,7 @@ export function MiniNavbar() {
   const { setCurrentView, cartCount, user, currentView } = useApp();
   const [isOpen, setIsOpen] = useState(false);
   const [headerShapeClass, setHeaderShapeClass] = useState('rounded-full');
-  const shapeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const shapeTimeoutRef = useRef<any>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
