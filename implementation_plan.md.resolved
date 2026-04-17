@@ -1,0 +1,80 @@
+# Website Redesign: Bento Grid & Modern Flat Design
+
+Transition the current digital marketing affiliate hub to a modern, high-density Bento Grid layout with a focus on modular discovery and professional "product-as-app" aesthetics.
+
+## Proposed Changes
+
+### Core Design System
+
+#### [MODIFY] [tailwind.config.js](file:///c:/Users/llmde/Desktop/app/tailwind.config.js)
+- Update color palette to include:
+  - Background: `#F3F4F6` (Canvas)
+  - Primary: `#FF4F00` (International Orange)
+  - Secondary: Slate gray for borders
+  - Commission: `#00C853` (Vivid Green)
+  - Surfaces: `#FFFFFF` (White cards)
+- Remove rounded corners (sharp corners as per prompt).
+- Remove shadows.
+
+#### [MODIFY] [index.css](file:///c:/Users/llmde/Desktop/app/src/index.css)
+- Implement global base styles for the new theme.
+- Define `.bento-card` utility for modular tiles.
+- Update typography to Inter (body) and technical heavy Sans-Serif (headings).
+
+### Components
+
+#### [MODIFY] [ProductCard.tsx](file:///c:/Users/llmde/Desktop/app/src/components/ui/custom/ProductCard.tsx)
+- Implement the "Refined product card" design:
+  - 1px border, white background, sharp corners.
+  - Hover effect: border-color change and subtle translateY.
+  - Commission badge in vivid green.
+  - Rectangular "Promote Now" button in Navy Blue.
+
+#### [NEW] [BentoHero.tsx](file:///c:/Users/llmde/Desktop/app/src/sections/BentoHero.tsx)
+- Create the main Bento Grid container using CSS Grid.
+- Components to include:
+  - **Hero Tile**: Large featured product highlight.
+  - **Categories Tile**: Interactive grid of categories.
+  - **Affiliate Stats Tile**: Real-time stats dashboard style.
+  - **Search Command Bar**: Width-expanding filter/search bar.
+
+### Search & Navigation Enhancements
+
+#### [MODIFY] [BentoHero.tsx](file:///c:/Users/llmde/Desktop/app/src/sections/BentoHero.tsx)
+- Remove the search command bar from the Bento grid.
+- Adjust grid layout to fill the resulting space.
+
+#### [MODIFY] [ProductsGrid.tsx](file:///c:/Users/llmde/Desktop/app/src/sections/ProductsGrid.tsx)
+- Implement a search input next to or above category filters.
+- Filter `filteredProducts` based on search term.
+
+#### [MODIFY] [ProductCard.tsx](file:///c:/Users/llmde/Desktop/app/src/components/ui/custom/ProductCard.tsx)
+- Rename button "Promote Now" to "View Details".
+- Ensure the button navigates to the detail view.
+
+#### [MODIFY] [ProductDetail.tsx](file:///c:/Users/llmde/Desktop/app/src/sections/ProductDetail.tsx)
+- Update colors to match the light theme (`bg-background`, black text).
+- Add a "Go to Seller Course" button using a dummy link from the product data.
+
+#### [MODIFY] [types/index.ts](file:///c:/Users/llmde/Desktop/app/src/types/index.ts) & [products.ts](file:///c:/Users/llmde/Desktop/app/src/data/products.ts)
+- Add `sellerUrl` field to [Product](file:///c:/Users/llmde/Desktop/app/src/types/index.ts#1-18) type.
+- Populate products with a dummy `sellerUrl` (e.g., `https://seller-course-platform.com/course-id`).
+
+### Premium Footer Integration
+
+#### [NEW] [footer-section.tsx](file:///c:/Users/llmde/Desktop/app/src/components/ui/footer-section.tsx)
+- Implement the provided React component with `motion/react`.
+- Update branding and copyright to "Aria Empire".
+- Adjust layout for the wider Bento grid aesthetic.
+
+#### [MODIFY] [Footer.tsx](file:///c:/Users/llmde/Desktop/app/src/sections/Footer.tsx)
+- Replace the simplified light-mode footer with the new premium animated component.
+- Ensure consistent spacing and borders.
+
+### Automated Tests
+- N/A (Manual visual verification is primary for this redesign)
+
+### Manual Verification
+- Verify layout responsiveness on mobile (tiles should stack).
+- Check contrast and accessibility of the new color scheme.
+- Verify hover states on product cards and bento tiles.
