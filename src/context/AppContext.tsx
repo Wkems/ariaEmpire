@@ -27,8 +27,8 @@ interface AppContextType {
   // User
   user: User | null;
   authLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
-  signup: (name: string, email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  signup: (name: string, email: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
   purchaseProduct: (productId: string) => void;
   
@@ -259,7 +259,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     if (error) {
       console.error('Login error:', error.message);
-      return false;
+      return { success: false, message: error.message };
     }
 
     if (data.user) {
@@ -270,9 +270,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         purchasedProducts: [],
         hoursLearned: 0
       });
-      return true;
+      return { success: true };
     }
-    return false;
+    return { success: false, message: 'An unexpected error occurred during login.' };
   }, []);
 
   const signup = useCallback(async (name: string, email: string, password: string) => {
@@ -288,20 +288,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     if (error) {
       console.error('Signup error:', error.message);
-      return false;
+      return { success: false, message: error.message };
     }
 
-    if (data.user) {
+    if (data.user && data.user.identities && data.user.identities.length === 0) {
+      return { success: false, message: 'Email address is already in use.' };
+    }
+
+    if (data.session) {
       setUser({
-        id: data.user.id,
-        email: data.user.email || '',
+        id: data.session.user.id,
+        email: data.session.user.email || '',
         name: name,
         purchasedProducts: [],
         hoursLearned: 0
       });
-      return true;
+      return { success: true };
+    } else if (data.user) {
+      return { success: true, message: 'Please check your email to confirm your account.' };
     }
-    return false;
+    return { success: false, message: 'An unexpected error occurred during signup.' };
   }, []);
 
   const logout = useCallback(async () => {

@@ -15,32 +15,37 @@ export function Auth({ mode }: AuthProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'error' | 'success'>('error');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setMessage('');
     setIsLoading(true);
 
     try {
-      let success;
+      let result;
       if (mode === 'login') {
-        success = await login(email, password);
+        result = await login(email, password);
       } else {
-        success = await signup(name, email, password);
+        result = await signup(name, email, password);
       }
 
-      if (success) {
-        setCurrentView('products');
+      if (result.success) {
+        if (result.message) {
+          setMessage(result.message);
+          setMessageType('success');
+        } else {
+          setCurrentView('products');
+        }
       } else {
-        setError(mode === 'login' 
-          ? 'Invalid email or password' 
-          : 'Please fill in all fields correctly'
-        );
+        setMessage(result.message || 'An unexpected error occurred.');
+        setMessageType('error');
       }
     } catch {
-      setError('An error occurred. Please try again.');
+      setMessage('An error occurred. Please try again.');
+      setMessageType('error');
     } finally {
       setIsLoading(false);
     }
@@ -135,9 +140,13 @@ export function Auth({ mode }: AuthProps) {
               </p>
             </div>
 
-            {error && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400 text-sm">
-                {error}
+            {message && (
+              <div className={`p-3 border rounded text-sm transition-colors ${
+                messageType === 'error' 
+                  ? 'bg-red-500/10 border-red-500/20 text-red-400' 
+                  : 'bg-green-500/10 border-green-500/20 text-green-400'
+              }`}>
+                {message}
               </div>
             )}
 
