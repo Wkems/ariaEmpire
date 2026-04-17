@@ -59,15 +59,32 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   
   // Products
-  const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('aria_products');
-    return saved ? JSON.parse(saved) : initialProducts;
-  });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [productsLoading, setProductsLoading] = useState(true);
 
-  // Persist products
+  // Fetch and persist products from Supabase
   useEffect(() => {
-    localStorage.setItem('aria_products', JSON.stringify(products));
-  }, [products]);
+    async function fetchProducts() {
+      const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: true });
+      if (error) {
+        console.error('Error fetching products:', error);
+      } else if (data && data.length > 0) {
+        setProducts(data);
+      } else if (data && data.length === 0) {
+        // Seed initial products to Supabase
+        const { data: seededData, error: seedError } = await supabase.from('products').insert(initialProducts).select();
+        if (seedError) {
+          console.error('Error seeding products:', seedError);
+          setProducts(initialProducts); // fallback
+        } else if (seededData) {
+          setProducts(seededData);
+        }
+      }
+      setProductsLoading(false);
+    }
+    
+    fetchProducts();
+  }, []);
   
   // Cart
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -177,22 +194,36 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Product management
-  const addProduct = useCallback((product: Omit<Product, 'id' | 'rating' | 'reviews'>) => {
-    const newProduct: Product = {
+  const addProduct = useCallback(async (product: Omit<Product, 'id' | 'rating' | 'reviews'>) => {
+    const newProduct = {
       ...product,
-      id: Date.now().toString(),
       rating: 0,
       reviews: 0
     };
-    setProducts(prev => [...prev, newProduct]);
+    const { data, error } = await supabase.from('products').insert(newProduct).select().single();
+    if (data) {
+      setProducts(prev => [...prev, data]);
+    } else if (error) {
+      console.error('Error adding product:', error);
+    }
   }, []);
 
-  const updateProduct = useCallback((id: string, updates: Partial<Product>) => {
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+  const updateProduct = useCallback(async (id: string, updates: Partial<Product>) => {
+    const { data, error } = await supabase.from('products').update(updates).eq('id', id).select().single();
+    if (data) {
+      setProducts(prev => prev.map(p => p.id === id ? data : p));
+    } else if (error) {
+      console.error('Error updating product:', error);
+    }
   }, []);
 
-  const deleteProduct = useCallback((id: string) => {
-    setProducts(prev => prev.filter(p => p.id !== id));
+  const deleteProduct = useCallback(async (id: string) => {
+    const { error } = await supabase.from('products').delete().eq('id', id);
+    if (!error) {
+      setProducts(prev => prev.filter(p => p.id !== id));
+    } else {
+      console.error('Error deleting product:', error);
+    }
   }, []);
 
   // Cart management

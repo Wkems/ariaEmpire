@@ -284,7 +284,7 @@ function ProductModal({
               </div>
 
               <div className="space-y-2">
-                <label className="text-gray-900 text-xs font-bold uppercase tracking-widest block pl-1">Terminal Value (USD)</label>
+                <label className="text-gray-900 text-xs font-bold uppercase tracking-widest block pl-1">Terminal Value (NGN)</label>
                 <Input
                   type="number"
                   value={formData.price}
@@ -584,7 +584,7 @@ export function GhostAdmin() {
                       </div>
                     </td>
                     <td className="p-8 hidden sm:table-cell">
-                      <div className="text-gray-900 text-lg font-bold font-mono">${product.price}</div>
+                      <div className="text-gray-900 text-lg font-bold font-mono">{formatPrice(product.price)}</div>
                       <div className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Digital Unit Value</div>
                     </td>
                     <td className="p-8 hidden md:table-cell">
