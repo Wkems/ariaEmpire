@@ -341,8 +341,6 @@ export function GhostAdmin() {
     updateLastActivity,
     totalClicks,
     affiliateStats,
-    currency,
-    setCurrency,
     formatPrice
   } = useApp();
   
@@ -428,22 +426,8 @@ export function GhostAdmin() {
 
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-3 pr-4 border-r border-gray-100">
-               <div className="flex items-center bg-gray-50 border border-gray-100 rounded-lg p-0.5">
-                 <button 
-                   onClick={() => setCurrency('USD')}
-                   className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest transition-all rounded-md ${currency === 'USD' ? 'bg-black text-white' : 'text-gray-400 hover:text-gray-600'}`}
-                 >
-                   USD
-                 </button>
-                 <button 
-                   onClick={() => setCurrency('NGN')}
-                   className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest transition-all rounded-md ${currency === 'NGN' ? 'bg-black text-white' : 'text-gray-400 hover:text-gray-600'}`}
-                 >
-                   NGN
-                 </button>
-               </div>
-               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse ml-2" />
-               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Active</span>
+               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">System Active</span>
             </div>
             <button
               onClick={logoutAdmin}

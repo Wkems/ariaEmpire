@@ -46,8 +46,6 @@ interface AppContextType {
   totalClicks: number;
   incrementClicks: () => void;
   affiliateStats: number;
-  currency: 'USD' | 'NGN';
-  setCurrency: (currency: 'USD' | 'NGN') => void;
   formatPrice: (price: number) => string;
 }
 
@@ -87,10 +85,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem('aria_affiliate_stats');
     return saved ? parseFloat(saved) : 0;
   });
-  const [currency, setCurrency] = useState<'USD' | 'NGN'>(() => {
-    const saved = localStorage.getItem('aria_currency');
-    return (saved as 'USD' | 'NGN') || 'USD';
-  });
 
   // Persist Stats
   useEffect(() => {
@@ -100,10 +94,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem('aria_affiliate_stats', affiliateStats.toString());
   }, [affiliateStats]);
-
-  useEffect(() => {
-    localStorage.setItem('aria_currency', currency);
-  }, [currency]);
 
   const incrementClicks = useCallback(() => {
     setTotalClicks(prev => prev + 1);
@@ -331,12 +321,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const formatPrice = useCallback((price: number) => {
-    if (currency === 'NGN') {
-      const ngnPrice = price * 1600;
-      return `₦${ngnPrice.toLocaleString()}`;
-    }
-    return `$${price.toLocaleString()}`;
-  }, [currency]);
+    return `₦${price.toLocaleString()}`;
+  }, []);
 
   const onOpenAdminModal = useCallback((callback: () => void) => {
     setAdminModalCallback(() => callback);
@@ -383,8 +369,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       totalClicks,
       incrementClicks,
       affiliateStats,
-      currency,
-      setCurrency,
       formatPrice
     }}>
       {children}
