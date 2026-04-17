@@ -60,7 +60,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   
   // Products
   const [products, setProducts] = useState<Product[]>([]);
-  const [productsLoading, setProductsLoading] = useState(true);
 
   // Fetch and persist products from Supabase
   useEffect(() => {
@@ -80,7 +79,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           setProducts(seededData);
         }
       }
-      setProductsLoading(false);
     }
     
     fetchProducts();
