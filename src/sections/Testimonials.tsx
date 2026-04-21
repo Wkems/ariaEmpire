@@ -1,6 +1,7 @@
 import { Star, ArrowRight } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { testimonials } from '@/data/products';
+import { getAssetPath } from '@/lib/utils';
 
 export function Testimonials() {
   const { setCurrentView } = useApp();
@@ -13,7 +14,7 @@ export function Testimonials() {
           {/* Left - Portrait Image */}
           <div className="relative aspect-[4/5] lg:aspect-auto lg:h-[70vh] rounded-lg overflow-hidden">
             <img
-              src={testimonial.image}
+              src={getAssetPath(testimonial.image)}
               alt={testimonial.name}
               className="w-full h-full object-cover"
             />

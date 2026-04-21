@@ -42,6 +42,11 @@ function AppContent() {
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [adminAccessGranted, setAdminAccessGranted] = useState(false);
 
+  // Scroll to top on view change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentView]);
+
   // Register the admin modal trigger with the context
   useEffect(() => {
     onOpenAdminModal(() => setShowAdminModal(true));
