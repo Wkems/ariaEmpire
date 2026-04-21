@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { TrendingUp } from 'lucide-react';
