@@ -2,6 +2,7 @@ import { TrendingUp, Users, DollarSign, ArrowRight } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { products } from '@/data/products';
 import { Button } from '@/components/ui/button';
+import { getAssetPath } from '@/lib/utils';
 
 export function BentoHero() {
   const { setCurrentView } = useApp();
@@ -39,7 +40,7 @@ export function BentoHero() {
             
             <div className="mt-auto">
                 <div className="flex items-center gap-4 p-4 border border-border bg-gray-50 mb-6">
-                    <img src={featuredProduct.image} alt="" className="w-16 h-16 object-cover border border-border" />
+                    <img src={getAssetPath(featuredProduct.image)} alt="" className="w-16 h-16 object-cover border border-border" />
                     <div>
                         <p className="text-xs font-bold text-gray-400 uppercase">Top Performer</p>
                         <p className="font-bold text-black">{featuredProduct.title}</p>

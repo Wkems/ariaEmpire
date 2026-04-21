@@ -83,7 +83,7 @@ export function Hero() {
             <div className="relative lg:h-[70vh] flex items-center justify-center">
               <div className="relative w-full max-w-lg lg:max-w-none aspect-[3/4] lg:h-full rounded-lg overflow-hidden">
                 <img
-                  src="/hero_workspace.jpg"
+                  src={`${import.meta.env.BASE_URL}hero_workspace.jpg`}
                   alt="Modern workspace"
                   className="w-full h-full object-cover"
                 />

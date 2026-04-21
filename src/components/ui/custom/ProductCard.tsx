@@ -2,6 +2,7 @@ import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/AppContext';
 import type { Product } from '@/types';
+import { getAssetPath } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product;
@@ -30,7 +31,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
       >
         <div className="aspect-video overflow-hidden">
           <img
-            src={product.image}
+            src={getAssetPath(product.image)}
             alt={product.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -57,7 +58,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
     >
       <div className="aspect-video overflow-hidden relative border-b border-border">
         <img
-          src={product.image}
+          src={getAssetPath(product.image)}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />

@@ -82,7 +82,7 @@ export function MiniNavbar() {
           onClick={() => setCurrentView('home')}
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          <img src="/logo.png" alt="Aria Empire" className="h-6 w-auto border border-white/20 p-0.5" />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Aria Empire" className="h-6 w-auto border border-white/20 p-0.5" />
           <span className="font-bold text-base tracking-tight text-white">
             Aria Empire
           </span>

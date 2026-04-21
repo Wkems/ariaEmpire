@@ -17,7 +17,7 @@ export function FeaturedProduct() {
       {/* Full-bleed background image */}
       <div className="absolute inset-0">
         <img
-          src="/featured_toolkit_cover.jpg"
+          src={`${import.meta.env.BASE_URL}featured_toolkit_cover.jpg`}
           alt="Featured Product"
           className="w-full h-full object-cover"
         />

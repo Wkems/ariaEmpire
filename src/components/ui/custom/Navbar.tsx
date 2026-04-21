@@ -31,7 +31,7 @@ export function Navbar() {
             onClick={() => setCurrentView('home')}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <img src="/logo.png" alt="Aria Empire" className="h-8 w-auto border border-border p-1" />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Aria Empire" className="h-8 w-auto border border-border p-1" />
             <span className="font-bold text-xl tracking-tight text-black">
               Aria Empire
             </span>

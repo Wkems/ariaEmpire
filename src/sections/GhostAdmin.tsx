@@ -391,7 +391,7 @@ export function GhostAdmin() {
         <div className="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between gap-8">
           <div className="flex items-center gap-4 shrink-0">
             <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center p-2 shadow-lg shadow-black/10">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain brightness-0 invert" />
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Logo" className="w-full h-full object-contain brightness-0 invert" />
             </div>
             <div>
               <h1 className="font-bold text-lg text-gray-900 leading-none">Aria Command</h1>

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Check, Star, ArrowRight } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
+import { getAssetPath } from '@/lib/utils';
 
 export function ProductDetail() {
   const { selectedProduct, setCurrentView, formatPrice } = useApp();
@@ -26,7 +27,7 @@ export function ProductDetail() {
           {/* Left - Image */}
           <div className="relative aspect-video lg:aspect-square bento-card overflow-hidden">
             <img
-              src={selectedProduct.image}
+              src={getAssetPath(selectedProduct.image)}
               alt={selectedProduct.title}
               className="w-full h-full object-cover"
             />

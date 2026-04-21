@@ -4,19 +4,19 @@ import { useApp } from '@/context/AppContext';
 const categories = [
   {
     title: 'Beginner Courses',
-    image: '/category_beginner.jpg',
+    image: `${import.meta.env.BASE_URL}category_beginner.jpg`,
     description: 'Start your journey',
     filter: 'beginner'
   },
   {
     title: 'Advanced Advertising',
-    image: '/category_advanced.jpg',
+    image: `${import.meta.env.BASE_URL}category_advanced.jpg`,
     description: 'Master paid ads',
     filter: 'advertising'
   },
   {
     title: 'Social Media Systems',
-    image: '/category_social.jpg',
+    image: `${import.meta.env.BASE_URL}category_social.jpg`,
     description: 'Grow your presence',
     filter: 'social'
   }
