@@ -13,6 +13,7 @@ import { CTA } from '@/sections/CTA';
 import { Footer } from '@/sections/Footer';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
+import { products as initialProducts } from '@/data/products';
 
 // Secret knock detection component
 function GhostAdminTrigger({ onTrigger }: { onTrigger: () => void }) {
@@ -74,7 +75,10 @@ function AppContent() {
   }, [currentView, adminAccessGranted, setCurrentView]);
 
   // Destructure 3 featured products
-  const homeFeaturedProducts = products.filter(p => p.featured).slice(0, 3);
+  const activeFeaturedProducts = products.filter(p => p.featured);
+  const homeFeaturedProducts = activeFeaturedProducts.length > 0 
+    ? activeFeaturedProducts.slice(0, 3) 
+    : initialProducts.filter(p => p.featured).slice(0, 3);
 
 
   // Render current view
@@ -104,7 +108,7 @@ function AppContent() {
             <section className="py-24 bg-background border-t border-border">
               <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between mb-12">
-                  <h2 className="text-3xl font-bold text-black font-sans uppercase tracking-tight">Top performing Hubs</h2>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight">Top Performing Hubs</h2>
                   <button 
                     onClick={() => setCurrentView('products')}
                     className="text-aria-orange font-bold text-sm uppercase tracking-widest hover:underline"
@@ -146,9 +150,18 @@ function AppContent() {
             <Testimonials />
             <section className="py-24 bg-background border-t border-border">
               <div className="max-w-7xl mx-auto px-6">
-                 <div className="grid md:grid-cols-3 gap-4" onClick={() => setCurrentView('products')}>
-                    {homeFeaturedProducts.map(product => <ProductCard key={product.id} product={product} /> )}
-                 </div>
+                <div className="flex items-center justify-between mb-12">
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight">Top Performing Hubs</h2>
+                  <button 
+                    onClick={() => setCurrentView('products')}
+                    className="text-aria-orange font-bold text-sm uppercase tracking-widest hover:underline"
+                  >
+                    Explore Hub Catalog
+                  </button>
+                </div>
+                <div className="grid md:grid-cols-3 gap-4" onClick={() => setCurrentView('products')}>
+                  {homeFeaturedProducts.map(product => <ProductCard key={product.id} product={product} /> )}
+                </div>
               </div>
             </section>
             <CTA />
